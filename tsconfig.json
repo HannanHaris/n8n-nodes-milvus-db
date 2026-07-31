@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2021",
+    "lib": ["es2021", "dom"],
+    "rootDir": ".",
+    "outDir": "./dist/",
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "useUnknownInCatchVariables": false,
+    "noImplicitAny": true,
+    "preserveConstEnums": true
+  },
+  "include": ["nodes/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
