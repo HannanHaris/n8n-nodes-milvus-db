@@ -10,13 +10,13 @@
   ],
   "license": "MIT",
   "author": "Hannan Haris (PufferSoft)",
-  "homepage": "https://github.com/YOUR_GITHUB_USERNAME/n8n-nodes-milvus-db",
+  "homepage": "https://github.com/HannanHaris/n8n-nodes-milvus-db",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_GITHUB_USERNAME/n8n-nodes-milvus-db.git"
+    "url": "git+https://github.com/HannanHaris/n8n-nodes-milvus-db.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_GITHUB_USERNAME/n8n-nodes-milvus-db/issues"
+    "url": "https://github.com/HannanHaris/n8n-nodes-milvus-db/issues"
   },
   "main": "index.js",
   "scripts": {
