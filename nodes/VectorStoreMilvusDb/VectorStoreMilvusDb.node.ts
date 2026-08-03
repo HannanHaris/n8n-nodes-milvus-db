@@ -1,7 +1,6 @@
 /*
- * Milvus Vector Store (DB) - PufferSoft
+ * Milvus Vector Store (Database)
  * n8n community node: Milvus vector store with explicit database selection.
- * Author: Hannan Haris (PufferSoft)
  */
 import { Milvus } from '@langchain/community/vectorstores/milvus';
 import { createVectorStoreNode } from '@n8n/ai-utilities';
@@ -79,7 +78,7 @@ async function resolveConfig(context: Context, itemIndex: number) {
 
 export class VectorStoreMilvusDb extends createVectorStoreNode<Milvus>({
 	meta: {
-		displayName: 'Milvus Vector Store (DB) - PufferSoft node',
+		displayName: 'Milvus Vector Store (Database)',
 		name: 'vectorStoreMilvusDb',
 		description: 'Work with your data in Milvus, with explicit database selection',
 		icon: { light: 'file:milvusdb.svg', dark: 'file:milvusdb.svg' },
