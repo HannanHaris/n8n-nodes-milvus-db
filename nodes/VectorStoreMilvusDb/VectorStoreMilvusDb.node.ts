@@ -124,4 +124,17 @@ export class VectorStoreMilvusDb extends createVectorStoreNode<Milvus>({
 
 		await Milvus.fromDocuments(documents, embeddings, config);
 	},
-}) {}
+}) {
+	constructor() {
+		super();
+		// n8n's community-node installer stores a node's version in an INTEGER
+		// database column. The vector-store base assigns a fractional version
+		// ([1, 1.1, 1.2, 1.3]), so installing via the UI fails on PostgreSQL with
+		// "invalid input syntax for type integer: 1.3" (n8n issue #23456).
+		// Overriding to the single integer 2 makes the installer accept it while
+		// preserving identical field visibility: Embedding Batch Size (@version
+		// >= 1.1) stays shown, and the legacy tool-name field (@version <= 1.2)
+		// stays hidden — exactly as at 1.3.
+		this.description.version = 2;
+	}
+}
