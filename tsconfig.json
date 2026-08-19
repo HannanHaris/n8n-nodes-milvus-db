@@ -12,8 +12,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "useUnknownInCatchVariables": false,
-    "noImplicitAny": true,
-    "preserveConstEnums": true
+    "noImplicitAny": true
   },
   "include": ["nodes/**/*"],
   "exclude": ["node_modules", "dist"]
