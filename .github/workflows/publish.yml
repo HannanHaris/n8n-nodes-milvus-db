@@ -1,14 +1,3 @@
-# Publishes the package to npm with a provenance attestation.
-# Triggers on any pushed version tag (e.g. v0.1.0).
-#
-# Setup (one-time, no secret needed):
-#   npmjs.com -> your package -> Settings -> Publish access -> Trusted Publishers
-#   -> Add publisher -> GitHub Actions:
-#       Repository owner:  HannanHaris
-#       Repository name:   n8n-nodes-milvus-db
-#       Workflow filename: publish.yml
-#
-# Author: Hannan Haris (PufferSoft)
 name: Publish to npm
 
 on:
@@ -21,19 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write        # required for provenance (OIDC)
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
-
       - run: npm install --ignore-scripts
-
       - run: npm run build
-
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
