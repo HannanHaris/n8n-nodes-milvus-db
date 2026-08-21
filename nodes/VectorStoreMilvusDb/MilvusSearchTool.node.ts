@@ -125,13 +125,15 @@ export class MilvusSearchTool implements INodeType {
 						displayName: 'Metric Type',
 						name: 'metricType',
 						type: 'options',
-						default: 'L2',
+						default: 'AUTO',
 						options: [
+							{ name: 'Auto (Detect from Collection)', value: 'AUTO' },
 							{ name: 'L2', value: 'L2' },
 							{ name: 'Cosine', value: 'COSINE' },
 							{ name: 'Inner Product (IP)', value: 'IP' },
 						],
-						description: 'Must match the metric the collection index was built with',
+						description:
+							'Search metric. "Auto" reads the metric the collection index was built with (recommended). Set explicitly only to override.',
 					},
 				],
 			},
@@ -167,7 +169,7 @@ export class MilvusSearchTool implements INodeType {
 		};
 		const textField = options.textField || 'langchain_text';
 		const vectorField = options.vectorField || 'langchain_vector';
-		const metricType = options.metricType || 'L2';
+		const metricTypeOption = options.metricType || 'AUTO';
 
 		// The connected embeddings sub-node (OpenAI/Qwen/etc). We only call
 		// embedQuery on it — duck-typed, copy-agnostic.
@@ -183,6 +185,35 @@ export class MilvusSearchTool implements INodeType {
 				const client = createMilvusClient(credentials, database);
 				try {
 					const vector = await embeddings.embedQuery(query);
+
+					// Resolve the search metric. "AUTO" reads the metric the
+					// collection's index was actually built with, so the caller
+					// doesn't have to know it — matching how the native node behaves.
+					let metricType = metricTypeOption;
+					if (metricType === 'AUTO') {
+						metricType = 'L2';
+						try {
+							const idx = await client.describeIndex({
+								collection_name: collection,
+								field_name: vectorField,
+							});
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							const descs: any[] = (idx && (idx as any).index_descriptions) || [];
+							for (const d of descs) {
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								const params: any[] = (d && d.params) || [];
+								const m = params.find(
+									(p) => p && (p.key === 'metric_type' || p.key === 'metricType'),
+								);
+								if (m && m.value) {
+									metricType = m.value;
+									break;
+								}
+							}
+						} catch {
+							// describeIndex not permitted or field mismatch — fall back to L2
+						}
+					}
 
 					// Make sure the collection is queryable.
 					try {

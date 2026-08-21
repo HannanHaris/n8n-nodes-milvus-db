@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-milvus-db",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Milvus Vector Store node for n8n with an explicit database selector (multi-database / multi-tenant Milvus)",
   "keywords": [
     "n8n-community-node-package",
