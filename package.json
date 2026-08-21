@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-milvus-db",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Milvus Vector Store node for n8n with an explicit database selector (multi-database / multi-tenant Milvus)",
   "keywords": [
     "n8n-community-node-package",
@@ -21,7 +21,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc && npm run copy:assets",
-    "copy:assets": "mkdir -p dist/nodes/VectorStoreMilvusDb && cp nodes/VectorStoreMilvusDb/*.svg dist/nodes/VectorStoreMilvusDb/",
+    "copy:assets": "mkdir -p dist/nodes/VectorStoreMilvusDb && cp nodes/VectorStoreMilvusDb/*.svg nodes/VectorStoreMilvusDb/*.png dist/nodes/VectorStoreMilvusDb/ 2>/dev/null || cp nodes/VectorStoreMilvusDb/*.png dist/nodes/VectorStoreMilvusDb/",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
@@ -31,8 +31,7 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "nodes": [
-      "dist/nodes/VectorStoreMilvusDb/VectorStoreMilvusDb.node.js",
-      "dist/nodes/VectorStoreMilvusDb/MilvusSearchTool.node.js"
+      "dist/nodes/VectorStoreMilvusDb/VectorStoreMilvusDb.node.js"
     ]
   },
   "dependencies": {

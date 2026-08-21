@@ -126,7 +126,7 @@ const BaseNode = createVectorStoreNode<Milvus>({
 		displayName: 'Milvus Vector Store (Database)',
 		name: 'vectorStoreMilvusDb',
 		description: 'Work with your data in Milvus, with explicit database selection',
-		icon: { light: 'file:milvusdb.svg', dark: 'file:milvusdb.svg' },
+		icon: { light: 'file:milvus-icon.png', dark: 'file:milvus-icon.png' },
 		docsUrl:
 			'https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoremilvus/',
 		credentials: [
